@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kennetix - Product Management & Business Analysis Consulting</title>
+    <!-- Google Fonts for Montserrat (headings) and Open Sans (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Variables for Brand Palette --- */
+        :root {
+            --primary-color: #1ABC9C; /* Kennetix Green */
+            --secondary-color: #19212A; /* Dark Blue/Black */
+            --neutral-light: #F5F7FA; /* Light Grey */
+            --text-dark: #19212A; /* Dark Blue/Black */
+            --text-light: #FFFFFF; /* White */
+            --border-radius: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 32px;
+            --spacing-lg: 64px;
+        }
+
+        /* --- Base Styles & Typography --- */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--neutral-light);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.2;
+            margin-top: 0;
+        }
+
+        h1 { font-size: 2.8em; font-weight: 700; } /* Desktop */
+        h2 { font-size: 2.2em; font-weight: 600; }
+        h3 { font-size: 1.8em; font-weight: 600; }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* --- Utility Classes --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-padding {
+            padding: var(--spacing-lg) 0;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 14px 28px;
+            border-radius: var(--border-radius);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: #16A085; /* Slightly darker primary */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* --- Section Styling --- */
+        section {
+            padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url('pattern_background.png'); /* Ensure this path is correct */
+            background-size: cover;
+            background-position: center;
+            background-color: var(--secondary-color); /* Fallback color */
+            color: var(--text-light);
+            text-align: center;
+            padding: var(--spacing-lg) var(--spacing-md) calc(var(--spacing-lg) * 1.5); /* More padding at bottom */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh; /* Ensure it takes a good portion of the viewport */
+            position: relative;
+            overflow: hidden; /* Hide any overflow from background */
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(25, 33, 42, 0.7); /* Dark overlay for text readability */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero .logo {
+            max-width: 180px; /* Adjust size as needed */
+            height: auto;
+            margin-bottom: var(--spacing-sm);
+            border-radius: var(--border-radius); /* Rounded corners for logo */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 0.2em;
+            color: var(--text-light);
+        }
+
+        .hero p {
+            font-size: 1.4em;
+            margin-bottom: var(--spacing-md);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Problem Statement Section */
+        .problem-statement {
+            background-color: var(--text-light);
+            text-align: center;
+            padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        .problem-statement h2 {
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .problem-statement p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1em;
+            color: #444;
+        }
+
+        /* Services Section */
+        .services {
+            background-color: var(--neutral-light);
+            padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        .services h2 {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .service-cards {
+            display: flex;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            justify-content: center;
+            gap: var(--spacing-md);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background-color: var(--text-light);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: var(--spacing-md);
+            flex: 1; /* Allows cards to grow and shrink */
+            min-width: 300px; /* Minimum width before wrapping */
+            max-width: 45%; /* Two columns on desktop */
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid var(--primary-color); /* Dino accent */
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .service-card .price {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            font-size: 1em;
+            color: #555;
+        }
+
+        /* Process Section */
+        .process {
+            background-color: var(--text-light);
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+        }
+
+        .process h2 {
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-md);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 280px; /* Minimum width for each step */
+            max-width: 30%; /* Three columns on desktop */
+            padding: var(--spacing-sm);
+            background-color: var(--neutral-light);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .process-step:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .process-step .icon {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: block; /* Ensures icon takes full width */
+        }
+        /* Example for a simple SVG icon placeholder */
+        .process-step .icon svg {
+            width: 60px;
+            height: 60px;
+            fill: var(--primary-color);
+        }
+
+        .process-step h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .process-step p {
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--neutral-light);
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+        }
+
+        .about h2 {
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1em;
+            color: #444;
+        }
+
+        /* Remote-First Highlight Box */
+        .remote-first {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: var(--spacing-md);
+            margin: var(--spacing-lg) auto; /* Centers the box */
+            max-width: 700px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .remote-first p {
+            margin: 0;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--text-light);
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .calendly-embed {
+            max-width: 900px;
+            margin: 0 auto var(--spacing-md) auto;
+            height: 700px; /* Adjust height as needed for Calendly */
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden; /* Ensures rounded corners on iframe */
+        }
+
+        .contact-links {
+            margin-top: var(--spacing-md);
+        }
+
+        .contact-links a {
+            font-size: 1.1em;
+            margin: 0 15px;
+            display: inline-block;
+            color: var(--secondary-color); /* Darker links for contrast */
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .contact-links a:hover {
+            color: var(--primary-color); /* Dino accent on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--secondary-color);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: var(--spacing-md);
+            font-size: 0.9em;
+        }
+
+        /* --- Responsive Adjustments (Mobile First) --- */
+
+        /* Small screens (e.g., phones) */
+        @media (max-width: 767px) {
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.4em; }
+
+            .hero {
+                min-height: 60vh;
+                padding: var(--spacing-md) var(--spacing-sm) calc(var(--spacing-md) * 1.5);
+            }
+            .hero .logo {
+                max-width: 120px;
+            }
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 1em;
+            }
+
+            .section-padding {
+                padding: var(--spacing-md) 0;
+            }
+
+            .service-card {
+                max-width: 100%; /* Stack cards on mobile */
+            }
+
+            .process-step {
+                max-width: 100%; /* Stack steps on mobile */
+            }
+
+            .calendly-embed {
+                height: 600px; /* Adjust height for mobile Calendly */
+            }
+        }
+
+        /* Medium screens (e.g., tablets) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            h1 { font-size: 3em; }
+            h2 { font-size: 2em; }
+            h3 { font-size: 1.6em; }
+
+            .service-card {
+                max-width: 48%; /* Keep two columns */
+            }
+
+            .process-step {
+                max-width: 31%; /* Keep three columns, adjust for gap */
+            }
+        }
+
+        /* Large screens (desktops) */
+        @media (min-width: 1024px) {
+            .container {
+                padding: var(--spacing-md) 0; /* Remove horizontal padding as max-width handles it */
+            }
+            .hero h1 {
+                font-size: 3.8em; /* Slightly larger on very large screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="KennetixLogo.png" alt="Kennetix Dino Logo" class="logo">
+            <h1>Unlock Your SaaS Product's Full Potential</h1>
+            <p>Expert Product Management & Business Analysis for Growing SaaS Teams</p>
+            <a href="https://calendly.com/kennetixllc/15-min-intro-call" target="_blank" class="btn">Book a Free 15-Min Intro Call</a>
+        </div>
+    </section>
+
+    <!-- Problem Statement Section -->
+    <section class="problem-statement section-padding">
+        <div class="container">
+            <h2>Are these challenges holding back your SaaS product?</h2>
+            <p>Many SaaS teams struggle with unclear product roadmaps, inefficient development cycles, and a disconnect between business goals and technical execution. This often leads to missed market opportunities, wasted resources, and a product that doesn't quite hit the mark with customers.</p>
+            <p>You might be an early-stage startup needing to define your MVP, a growing scale-up struggling with product-market fit, or an established enterprise looking to optimize your PM/BA functions. Regardless of your stage, these pain points can severely impact your growth and profitability.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services section-padding">
+        <div class="container">
+            <h2 class="text-center">How Kennetix Can Help</h2>
+            <div class="service-cards">
+                <div class="service-card">
+                    <h3>PM/BA Audit</h3>
+                    <p class="price">$2,000</p>
+                    <p>A comprehensive review of your current product management and business analysis processes, tools, and team structure. We identify bottlenecks, inefficiencies, and areas for improvement, providing actionable recommendations to streamline your operations and enhance product delivery.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Fractional PM/BA Support</h3>
+                    <p class="price">$4,000/mo (20 hrs/mo)</p>
+                    <p>Gain ongoing, dedicated product management or business analysis expertise without the overhead of a full-time hire. We integrate with your team to drive initiatives, manage backlogs, gather requirements, and ensure your product strategy aligns with your business objectives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process section-padding">
+        <div class="container">
+            <h2>Our Simple, Effective Process</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <span class="icon">
+                        <!-- Placeholder for SVG Icon 1 (e.g., a magnifying glass) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    </span>
+                    <h3>1. Discover & Diagnose</h3>
+                    <p>We start with an in-depth consultation to understand your unique challenges, current product landscape, and strategic goals. For audits, this includes a thorough review of your existing processes.</p>
+                </div>
+                <div class="process-step">
+                    <span class="icon">
+                        <!-- Placeholder for SVG Icon 2 (e.g., a lightbulb) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19c-3.87 0-7 3.13-7 7s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm2.85 11.15L13 14.5V16h-2v-1.5l-.85-.85C8.94 12.59 8 10.94 8 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.94-.94 3.59-2.15 4.15z"/></svg>
+                    </span>
+                    <h3>2. Strategize & Plan</h3>
+                    <p>Based on our findings, we develop a tailored strategy and detailed action plan. This includes defining clear objectives, key results, and a roadmap for implementation or ongoing support.</p>
+                </div>
+                <div class="process-step">
+                    <span class="icon">
+                        <!-- Placeholder for SVG Icon 3 (e.g., a rocket) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.67 12.33 2 11.5 2S10 2.67 10 3.5V5H6c-1.1 0-2 .9-2 2v4H3.5c-.83 0-1.5.67-1.5 1.5S2.67 14 3.5 14H5v4c0 1.1.9 2 2 2h4v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h4c1.1 0 2-.9 2-2v-4h1.5c.83 0 1.5-.67 1.5-1.5S21.33 11 20.5 11zM11 17H7v-4h4v4zm6 0h-4v-4h4v4z"/></svg>
+                    </span>
+                    <h3>3. Execute & Optimize</h3>
+                    <p>We work collaboratively with your team to implement the strategy, provide hands-on support, and continuously monitor progress. Our agile approach ensures flexibility and ongoing optimization for best results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section-padding">
+        <div class="container">
+            <h2>About Kennetix</h2>
+            <div class="about-content">
+                <p>Kennetix was founded on the belief that well-executed product management and business analysis are the bedrock of successful SaaS products. With years of experience working with diverse tech companies, we understand the nuances of bringing innovative solutions to market and optimizing existing ones.</p>
+                <p>Our approach is pragmatic, data-driven, and highly collaborative. We don't just provide recommendations; we roll up our sleeves and work alongside your team to ensure sustainable growth and measurable impact. We're passionate about helping businesses transform their product vision into reality, fostering efficiency and clarity every step of the way.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Remote-First Highlight Box -->
+    <div class="remote-first">
+        <p>Operating from Bangkok, Thailand – we're a remote-first consultancy ready to partner with teams worldwide.</p>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact section-padding">
+        <div class="container">
+            <h2>Let's Connect</h2>
+            <p>Ready to elevate your product management and business analysis? Schedule a free intro call, or reach out directly.</p>
+
+            <!-- Calendly inline widget begin -->
+            <div class="calendly-inline-widget calendly-embed" data-url="https://calendly.com/kennetixllc/15-min-intro-call"></div>
+            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+            <!-- Calendly inline widget end -->
+
+            <div class="contact-links">
+                <a href="mailto:kennetixllc@outlook.com" target="_blank">Email: kennetixllc@outlook.com</a>
+                <a href="https://www.linkedin.com/in/mark-hanson-160b6a56" target="_blank">LinkedIn: Mark Hanson</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Kennetix. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
